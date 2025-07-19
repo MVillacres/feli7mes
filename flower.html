@@ -7,15 +7,66 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="icon" href="img/flowers.png" type="image/x-icon" />
     <title>Flower</title>
+    <style>
+       .modal {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: none;             
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-content {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .close-btn {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      #muak-button {
+        margin: 20px auto;
+        display: block;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        border-radius: 12px;
+        background-color: #f7a1b7;
+        border: none;
+        color: #5c2640;
+        box-shadow: 0 4px 8px rgba(247, 161, 183, 0.4);
+        transition: background-color 0.3s ease;
+      }
+      #muak-button:hover {
+        background-color: #ec7fa1;
+        color: #3e1d2a;
+      }
+      #muak-container {
+        margin-top: 20px;
+        text-align: center;
+        display: none;
+      }
+      #muak-image {
+        max-width: 200px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
   </head>
   <body class="container">
-    <audio src="sound/ChristianBasso&HaienQiu-Flowers.mp3" autoplay></audio>
+    <audio
+      id="background-audio"
+      src="sound/ChristianBasso&HaienQiu-Flowers.mp3"
+      loop
+    ></audio>
     <div id="lyrics">
      
     </div>
-    <h1 class="titulo">Estas flores amarillas son un reflejo de la alegría que traes a mi vida. <br> <br>
-      Gracias por iluminar mis días con tu presencia.</h1>
-  
+    <h1 class="titulo">Flores amarillas por adelantado, pa las que no te he dado todos estos años</h1>
+
     <div class="night"></div>
     <div class="flowers">
       <div class="flower flower--1">
@@ -326,7 +377,76 @@
         </div>
       </div>
     </div>
+
+  <button id="muak-button" aria-label="Mostrar imagen y sonido muak">
+    Presiona
+  </button>
+
+  <!-- Modal personalizado -->
+  <div id="muak-modal" class="modal">
+    <div class="modal-content">
+      <h2>Usted ha sido <strong>brutalmente smeksuada</strong></h2>
+      <img src="img/muak.png" alt="Muak" />
+      <button class="close-btn" aria-label="Cerrar">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Audios -->
+  <audio id="muak-sound" src="sound/muak.mp3"></audio>
+
+    <script>
+      // Función para obtener parámetros URL
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+
+      const backgroundAudio = document.getElementById("background-audio");
+      const playMusic = getQueryParam("playMusic");
+
+      // Si playMusic es true, reproducir música
+      if (playMusic === "true") {
+        // Para que reproduzca después de que la página esté lista
+        window.addEventListener("load", () => {
+          // Algunos navegadores requieren interacción para reproducir
+          backgroundAudio.play().catch(() => {
+            // No pasa nada si falla por autoplay
+            console.log("La reproducción automática fue bloqueada.");
+          });
+        });
+      }
+
+      // Botón muak
+      const muakBtn = document.getElementById("muak-button");
+      const muakContainer = document.getElementById("muak-container");
+      const muakSound = document.getElementById("muak-sound");
+      const muakModal = document.getElementById("muak-modal");
+      const closeBtn = muakModal.querySelector(".close-btn");
+
+      muakBtn.addEventListener("click", () => {
+        // mostramos el modal
+        muakModal.style.display = "flex";
+        // y reproducimos el audio
+        muakSound.currentTime = 0;
+        muakSound.play();
+      });
+
+      closeBtn.addEventListener("click", () => {
+        // ocultamos el modal al cerrar
+        muakModal.style.display = "none";
+      });
+      muakBtn.addEventListener("click", () => {
+        // Mostrar imagen muak
+        muakContainer.style.display = "block";
+
+        // Reproducir sonido muak
+        muakSound.currentTime = 0;
+        muakSound.play();
+      });
+    </script>
+
     <script src="anim.js"></script>
     <script src="main.js"></script>
+    
   </body>
 </html>

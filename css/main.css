@@ -9,6 +9,40 @@
 :root {
   --dark-color: #000;
 }
+/* centra el contenedor .flowers */
+.flowers {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Asegúrate de que el modal ocupe toda la pantalla y use Flexbox */
+#muak-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;               /* sigue oculto por defecto */
+  align-items: center;         /* centra verticalmente */
+  justify-content: center;     /* centra horizontalmente */
+  z-index: 1000;               /* por si acaso */
+}
+
+/* Modal más pequeño y centrado */
+#muak-modal .modal-content {
+  max-width: 300px;            /* ancho máximo */
+  width: 80%;                  /* o el % que prefieras */
+  padding: 1rem;               /* menos relleno */
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: #fff;            /* asegúrate de que contraste */
+}
+
+/* Ajuste de la imagen dentro del modal */
+#muak-modal .modal-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5rem auto;
+}
 
 body {
   display: flex;
